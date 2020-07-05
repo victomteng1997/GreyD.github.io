@@ -92,6 +92,10 @@
 <li>todos (to-do.txt)</li>
 <li>other content pages</li>
 </ol>
+<p>The login page can be brute-forced through a crafted wordlist, with the username “furges” from to-do and wordlist built from web page.</p>
+<h1 id="www-data"><a href="#www-data" class="headerlink" title="www-data"></a>www-data</h1><p>After obtain the web login information, a <a href="https://www.rapid7.com/db/modules/exploit/linux/http/bludit_upload_images_exec" target="_blank" rel="noopener">bludit metasploit module</a> can be used to obtain www-data shell</p>
+<h1 id="user"><a href="#user" class="headerlink" title="user"></a>user</h1><p>Examine the web server source code, and the password hash for normal user is there. Dehash with any online tools or jack. A simple <strong>su</strong> command can be used to obtain user.</p>
+<h1 id="root"><a href="#root" class="headerlink" title="root"></a>root</h1><p>User to root is an exploit I never heard before. A <strong>sudo -l</strong> command shows privilege for user, and further exploits can be find <a href="https://www.hackingarticles.in/sudo-security-policy-bypass-vulnerability-cve-2019-14287/" target="_blank" rel="noopener">here</a></p>
 
       
     </div>
