@@ -1,3 +1,22 @@
 [0702/152411:INFO:http_cache_transaction.cc(72)] IgnoreZeroCacheError: 0
 [0702/152415:WARNING:url_request_job_manager.cc(89)] Failed to map: weixin://resourceid/blank
 [0702/200041:WARNING:url_request_job_manager.cc(89)] Failed to map: weixin://resourceid/blank
+[0703/113612:WARNING:dns_config_service_win.cc(674)] Failed to read DnsConfig.
+[0703/120615:WARNING:dns_config_service_win.cc(674)] Failed to read DnsConfig.
+[0703/120615:WARNING:dns_config_service_win.cc(674)] Failed to read DnsConfig.
+[0703/224810:WARNING:dns_config_service_win.cc(674)] Failed to read DnsConfig.
+[0703/224811:WARNING:dns_config_service_win.cc(674)] Failed to read DnsConfig.
+[0703/224812:WARNING:dns_config_service_win.cc(674)] Failed to read DnsConfig.
+[0703/224813:WARNING:dns_config_service_win.cc(674)] Failed to read DnsConfig.
+[0703/224816:WARNING:dns_config_service_win.cc(674)] Failed to read DnsConfig.
+[0703/224816:WARNING:dns_config_service_win.cc(674)] Failed to read DnsConfig.
+[0703/224817:WARNING:dns_config_service_win.cc(674)] Failed to read DnsConfig.
+[0703/224818:WARNING:dns_config_service_win.cc(674)] Failed to read DnsConfig.
+[0703/224821:WARNING:dns_config_service_win.cc(674)] Failed to read DnsConfig.
+[0703/224821:WARNING:dns_config_service_win.cc(674)] Failed to read DnsConfig.
+[0703/224822:WARNING:dns_config_service_win.cc(674)] Failed to read DnsConfig.
+[0703/224823:WARNING:dns_config_service_win.cc(674)] Failed to read DnsConfig.
+[0703/224826:WARNING:dns_config_service_win.cc(674)] Failed to read DnsConfig.
+[0703/224826:WARNING:dns_config_service_win.cc(674)] Failed to read DnsConfig.
+[0704/100407:WARNING:dns_config_service_win.cc(674)] Failed to read DnsConfig.
+[0704/172353:ERROR:browser_gpu_channel_host_factory.cc(119)] Failed to launch GPU process.
